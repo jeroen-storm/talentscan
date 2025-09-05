@@ -29,10 +29,19 @@
         `;
         
         try {
-            // Load from Firebase
-            const scanData = await loadDashboardStats();
+            // Try Firebase first, fallback to localStorage
+            let scanData = null;
             
-            if (!scanData || !scanData.totalScans || scanData.totalScans === 0) {
+            if (typeof loadDashboardStats === 'function') {
+                scanData = await loadDashboardStats();
+            }
+            
+            // Fallback to localStorage if Firebase fails or returns empty
+            if (!scanData || !scanData.totalScans) {
+                scanData = JSON.parse(localStorage.getItem('talentScanStats') || '{}');
+            }
+            
+            if (!scanData || !scanData.completedScans && !scanData.totalScans) {
                 dashboardContent.innerHTML = `
                     <div class="no-data">
                         <h2>Nog geen data beschikbaar</h2>
@@ -42,10 +51,10 @@
                 return;
             }
             
-            // Calculate statistics
-            const totalScans = scanData.totalScans || 0;
-            const talentCounts = scanData.talentCounts || {};
-            const questionStats = scanData.questionStats || {};
+            // Handle both Firebase and localStorage data formats
+            const totalScans = scanData.totalScans || scanData.completedScans || 0;
+            const talentCounts = scanData.talentCounts || scanData.talentResults || {};
+            const questionStats = scanData.questionStats || scanData.questionAnswers || {};
         
         // Calculate talent percentages
         const talentPercentages = {};
