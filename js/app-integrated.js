@@ -108,10 +108,10 @@
         {
             text: "Als er ruzie is in mijn vriendengroep, dan:",
             options: [
-                { text: "Ik probeer het probleem weg te praten met humor of verhalen", scores: {creatief: 2, sociaal: 1} },
-                { text: "Ik zoek handige oplossingen en maak eventueel een plan", scores: {digitaal: 1, onderzoekend: 2} },
-                { text: "Ik zoek uit wat er precies aan de hand is", scores: {onderzoekend: 3} },
-                { text: "Ik breng iedereen bij elkaar en help ze praten", scores: {sociaal: 3} }
+                { text: "probeer ik het probleem weg te praten met humor of verhalen", scores: {creatief: 2, sociaal: 1} },
+                { text: "zoek ik handige oplossingen en maak eventueel een plan", scores: {digitaal: 1, onderzoekend: 2} },
+                { text: "zoek ik uit wat er precies aan de hand is", scores: {onderzoekend: 3} },
+                { text: "breng ik iedereen bij elkaar en help ze praten", scores: {sociaal: 3} }
             ]
         },
         {
@@ -153,10 +153,10 @@
         {
             text: "Ik voel me het meest gestrest als:",
             options: [
-                { text: "Als ik geen goede ideeën heb of niet creatief kan zijn", scores: {creatief: 2} },
-                { text: "Als technologie niet werkt of ik iets niet digitaal kan maken", scores: {digitaal: 2} },
-                { text: "Als ik informatie mis of iets niet goed snap", scores: {onderzoekend: 2} },
-                { text: "Als er ruzie is of mensen niet goed samenwerken", scores: {sociaal: 2} }
+                { text: "Ik geen goede ideeën heb of niet creatief kan zijn", scores: {creatief: 2} },
+                { text: "Technologie niet werkt of ik iets niet digitaal kan maken", scores: {digitaal: 2} },
+                { text: "Ik informatie mis of iets niet goed snap", scores: {onderzoekend: 2} },
+                { text: "Er ruzie is of mensen niet goed samenwerken", scores: {sociaal: 2} }
             ]
         },
         {
@@ -171,10 +171,10 @@
         {
             text: "Als ik een presentatie moet geven, dan:",
             options: [
-                { text: "Ik vertel het als een verhaal met voorbeelden", scores: {creatief: 2, sociaal: 1} },
-                { text: "Ik maak een mooie slideshow met plaatjes en video's", scores: {digitaal: 2, creatief: 1} },
-                { text: "Ik verzamel veel informatie en zorg dat alles klopt", scores: {onderzoekend: 2, digitaal: 1} },
-                { text: "Ik zorg dat iedereen meedoet en betrokken blijft", scores: {sociaal: 2, onderzoekend: 1} }
+                { text: "vertel ik het als een verhaal met voorbeelden", scores: {creatief: 2, sociaal: 1} },
+                { text: "maak ik een mooie slideshow met plaatjes en video's", scores: {digitaal: 2, creatief: 1} },
+                { text: "verzamel ik veel informatie en zorg dat alles klopt", scores: {onderzoekend: 2, digitaal: 1} },
+                { text: "zorg ik dat iedereen meedoet en betrokken blijft", scores: {sociaal: 2, onderzoekend: 1} }
             ]
         }
     ];
