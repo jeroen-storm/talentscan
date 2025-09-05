@@ -403,6 +403,11 @@
         
         updateNavigation();
         saveProgress();
+        
+        // Auto-advance to next question after short delay for UX
+        setTimeout(() => {
+            nextQuestion();
+        }, 800);
     }
 
     function updateNavigation() {

@@ -446,7 +446,7 @@ body.welcome-active {
 }
 
 .navigation {
-    display: flex;
+    display: none; /* Hidden since we have auto-advance */
     justify-content: space-between;
     align-items: center;
 }
@@ -794,7 +794,7 @@ body.welcome-active {
     align-items: center;
     justify-content: center;
     margin: 40px 0;
-    gap: 30px;
+    gap: 15px;
 }
 
 .situation-line, .context-line, .question-line {
@@ -810,19 +810,20 @@ body.welcome-active {
 .situation-line {
     color: rgba(255,255,255,0.9);
     font-size: 1.6em;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .context-line {
     color: rgba(255,255,255,0.9);
     font-size: 1.6em;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .question-line {
     color: white;
-    font-size: 1.8em;
+    font-size: 2.2em;
     font-weight: bold;
+    margin-top: 10px;
 }
 
 .intro-navigation {
@@ -837,7 +838,7 @@ body.welcome-active {
     }
     
     .intro-text {
-        gap: 25px;
+        gap: 12px;
         margin: 30px 0;
     }
     
@@ -850,6 +851,6 @@ body.welcome-active {
     }
     
     .question-line {
-        font-size: 1.5em;
+        font-size: 1.8em;
     }
 } 
