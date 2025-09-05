@@ -231,6 +231,25 @@
     let currentIntro = 0;
     let answers = [];
     let scores = {creatief: 0, digitaal: 0, onderzoekend: 0, sociaal: 0};
+    let questionOrder = [];  // Array to store randomized question indices
+    let originalQuestionIndex = {}; // Map randomized index to original index
+
+    // Randomize questions while keeping character/intro mapping
+    function initializeQuestionOrder() {
+        // Create array of indices [0, 1, 2, ..., 11]
+        questionOrder = Array.from({length: questions.length}, (_, i) => i);
+        
+        // Fisher-Yates shuffle algorithm
+        for (let i = questionOrder.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [questionOrder[i], questionOrder[j]] = [questionOrder[j], questionOrder[i]];
+        }
+        
+        // Create reverse mapping for easy lookup
+        questionOrder.forEach((originalIndex, randomizedIndex) => {
+            originalQuestionIndex[randomizedIndex] = originalIndex;
+        });
+    }
 
     // Save and load progress functions
     function saveProgress() {
@@ -239,6 +258,8 @@
                 currentQuestion,
                 currentIntro,
                 answers,
+                questionOrder,  // Save the randomized order
+                originalQuestionIndex,
                 timestamp: Date.now()
             };
             localStorage.setItem('talentScanProgress', JSON.stringify(progressData));
@@ -254,6 +275,11 @@
                 const data = JSON.parse(saved);
                 // Check if saved data is less than 24 hours old
                 if (Date.now() - data.timestamp < 86400000) {
+                    // Restore the question order if it exists
+                    if (data.questionOrder) {
+                        questionOrder = data.questionOrder;
+                        originalQuestionIndex = data.originalQuestionIndex || {};
+                    }
                     return data;
                 }
             }
@@ -280,6 +306,8 @@
             }
         }
         
+        // Initialize random order for new scan
+        initializeQuestionOrder();
         currentIntro = 0;
         currentQuestion = 0;
         showIntro();
@@ -288,7 +316,9 @@
     function showIntro() {
         showScreen('intro');
         
-        const introText = introTexts[currentIntro];
+        // Get the actual question index from randomized order
+        const actualIndex = questionOrder[currentIntro];
+        const introText = introTexts[actualIndex];
         const introTextElement = document.getElementById('intro-text');
         
         // Safe DOM manipulation
@@ -302,17 +332,17 @@
             if (questionLine) questionLine.textContent = introText.question;
         }
         
-        // Update character image based on current question
+        // Update character image based on actual question (character follows the question)
         const characterImg = document.getElementById('character-img');
         if (characterImg) {
             const characterNames = ['emma', 'malik', 'sofie', 'zara', 'jasper', 'luna', 'noah', 'aisha', 'lars', 'mila', 'david', 'fatima'];
-            const questionNumber = currentIntro + 1;
-            const characterName = characterNames[currentIntro] || 'emma';
+            const questionNumber = actualIndex + 1; // Character follows the actual question
+            const characterName = characterNames[actualIndex] || 'emma';
             
             // Format: 01- emma.png, 02-malik.png etc.
             const imageNumber = questionNumber.toString().padStart(2, '0');
             let imageSrc;
-            if (currentIntro === 0) {
+            if (actualIndex === 0) {
                 // First image has a space: "01- emma.png"
                 imageSrc = `IMG/characters/${imageNumber}- ${characterName}.png`;
             } else {
@@ -373,7 +403,9 @@
     }
 
     function showQuestion() {
-        const question = questions[currentQuestion];
+        // Get the actual question index from randomized order
+        const actualIndex = questionOrder[currentQuestion];
+        const question = questions[actualIndex];
         const questionText = document.getElementById('question-text');
         if (questionText) {
             questionText.textContent = question.text;
@@ -401,8 +433,9 @@
                 optionDiv.textContent = option.text;
                 optionDiv.onclick = () => selectOption(index);
                 
-                // Restore selected state if exists
-                if (answers[currentQuestion] === index) {
+                // Restore selected state if exists (use actual index for answers)
+                const actualIndex = questionOrder[currentQuestion];
+                if (answers[actualIndex] === index) {
                     optionDiv.classList.add('selected');
                 }
                 
@@ -415,7 +448,9 @@
     }
 
     function selectOption(index) {
-        answers[currentQuestion] = index;
+        // Store answer at the actual question index
+        const actualIndex = questionOrder[currentQuestion];
+        answers[actualIndex] = index;
         
         document.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
         const selectedOption = document.querySelectorAll('.option')[index];
@@ -440,12 +475,14 @@
             prevBtn.disabled = currentQuestion === 0;
         }
         if (nextBtn) {
-            nextBtn.disabled = answers[currentQuestion] === undefined;
+            const actualIndex = questionOrder[currentQuestion];
+            nextBtn.disabled = answers[actualIndex] === undefined;
         }
     }
 
     function nextQuestion() {
-        if (answers[currentQuestion] !== undefined) {
+        const actualIndex = questionOrder[currentQuestion];
+        if (answers[actualIndex] !== undefined) {
             currentQuestion++;
             currentIntro++;
             if (currentQuestion < questions.length) {
@@ -477,10 +514,51 @@
             }
         });
         
+        // Save statistics for dashboard
+        saveStatistics();
+        
         // Clear saved progress after completion
         localStorage.removeItem('talentScanProgress');
         
         displayResults();
+    }
+    
+    function saveStatistics() {
+        // Determine primary talent
+        let primaryTalent = '';
+        let maxScore = 0;
+        Object.keys(scores).forEach(talent => {
+            if (scores[talent] > maxScore) {
+                maxScore = scores[talent];
+                primaryTalent = talent;
+            }
+        });
+        
+        // Save to Firebase (function from firebase-config.js)
+        if (typeof saveCompletedScan === 'function') {
+            saveCompletedScan(primaryTalent, answers, scores);
+        } else {
+            // Fallback to localStorage if Firebase not loaded
+            try {
+                const stats = JSON.parse(localStorage.getItem('talentScanStats') || '{}');
+                stats.completedScans = (stats.completedScans || 0) + 1;
+                stats.talentResults = stats.talentResults || {};
+                stats.talentResults[primaryTalent] = (stats.talentResults[primaryTalent] || 0) + 1;
+                stats.questionAnswers = stats.questionAnswers || {};
+                
+                answers.forEach((answerIndex, questionIndex) => {
+                    if (!stats.questionAnswers[questionIndex]) {
+                        stats.questionAnswers[questionIndex] = {};
+                    }
+                    stats.questionAnswers[questionIndex][answerIndex] = 
+                        (stats.questionAnswers[questionIndex][answerIndex] || 0) + 1;
+                });
+                
+                localStorage.setItem('talentScanStats', JSON.stringify(stats));
+            } catch (e) {
+                console.log('Could not save statistics');
+            }
+        }
     }
 
     function displayResults() {

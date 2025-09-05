@@ -119,6 +119,33 @@
         }
     }
     
+    // Function to navigate to talent overview page
+    window.goToTalentOverview = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const primaryTalent = urlParams.get('primary');
+        
+        if (primaryTalent) {
+            // Map talent types to page names
+            const pageMap = {
+                'creatief': 'creatief.html',
+                'digitaal': 'digitaal.html', 
+                'onderzoekend': 'onderzoekend.html',
+                'sociaal': 'sociaal.html'
+            };
+            
+            const targetPage = pageMap[primaryTalent];
+            if (targetPage) {
+                window.location.href = targetPage;
+            } else {
+                // Fallback
+                window.location.href = 'creatief.html';
+            }
+        } else {
+            // Fallback if no primary talent found
+            window.location.href = 'creatief.html';
+        }
+    };
+    
     // Initialize page
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', displayResults);

@@ -64,6 +64,8 @@ npx http-server
 - Auto-advance after option selection (800ms delay)
 - Progress saving to localStorage
 - Resume capability for incomplete quizzes
+- Randomized question order (Fisher-Yates shuffle)
+- Character-question mapping preserved during randomization
 
 ### Responsive Design
 - Mobile-first approach with breakpoints at 768px
