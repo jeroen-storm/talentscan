@@ -4,11 +4,11 @@ An interactive talent assessment application for Dutch youth, developed in colla
 
 ## 🎯 Purpose
 
-The Talent Lab Scan helps young people discover their natural talents and strengths through an engaging 10-question assessment. Users receive personalized results identifying their primary talent profile and discover activities, workshops, and resources available at FlevoMeer libraries.
+The Talent Lab Scan helps young people discover their natural talents and strengths through an engaging 12-question assessment. Users receive personalized results identifying their primary talent profile and discover activities, workshops, and resources available at FlevoMeer libraries.
 
 ## ✨ Features
 
-- **Interactive Assessment**: 10 engaging questions with smooth transitions
+- **Interactive Assessment**: 12 engaging questions with smooth transitions
 - **Four Talent Profiles**:
   - 🎨 Creatieve verhalenvertellers (Creative Storytellers)
   - 💻 Digitale ontwerpers (Digital Designers)
@@ -89,7 +89,7 @@ talent-scan/
 2. Click "START" to begin the assessment
 3. Read each situation and question
 4. Select the answer that best represents you
-5. Complete all 10 questions
+5. Complete all 12 questions
 6. View your personalized talent profile
 7. Click "ONTDEK WAT ER TE DOEN IS" to explore activities
 8. Browse workshops, books, and activities for your talent
