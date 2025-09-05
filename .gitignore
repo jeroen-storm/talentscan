@@ -32,3 +32,17 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Debug and test files - DO NOT DEPLOY
+firebase-debug.html
+firebase-cleanup.html
+
+# Development files
+talent-template.html
+CLAUDE.md
+IMPROVEMENTS.md
+talentlab-paginas-markup.md
+
+# Unused/old files
+results.html
+index.html

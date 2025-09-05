@@ -744,13 +744,13 @@ body.welcome-active {
     gap: 15px;
 }
 
-/* Hide 4th book on smaller screens */
-@media (max-width: 1200px) {
-    .book-4 {
-        display: none;
-    }
+/* Show 4 books on desktop, 3 on tablet */
+@media (max-width: 1024px) {
     .book-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .book-4 {
+        display: none;
     }
 }
 
