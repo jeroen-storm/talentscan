@@ -383,21 +383,42 @@
     }
 
     function showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-            if (screen.id === 'questions') {
-                const nav = screen.querySelector('.navigation');
-                if (nav) nav.style.display = 'none';
-            }
-        });
-        
-        const targetScreen = document.getElementById(screenId);
-        if (targetScreen) {
-            targetScreen.classList.add('active');
+        // Fade out current screen
+        const currentActive = document.querySelector('.screen.active');
+        if (currentActive) {
+            currentActive.classList.add('fade-out');
             
-            if (screenId === 'questions') {
-                const nav = document.querySelector('.navigation');
-                if (nav) nav.style.display = 'flex';
+            setTimeout(() => {
+                // Remove active from all screens
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active', 'fade-out');
+                    if (screen.id === 'questions') {
+                        const nav = screen.querySelector('.navigation');
+                        if (nav) nav.style.display = 'none';
+                    }
+                });
+                
+                // Show target screen
+                const targetScreen = document.getElementById(screenId);
+                if (targetScreen) {
+                    targetScreen.classList.add('active');
+                    
+                    if (screenId === 'questions') {
+                        const nav = document.querySelector('.navigation');
+                        if (nav) nav.style.display = 'flex';
+                    }
+                }
+            }, 200); // Half the transition duration
+        } else {
+            // No current screen, show immediately
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+                
+                if (screenId === 'questions') {
+                    const nav = document.querySelector('.navigation');
+                    if (nav) nav.style.display = 'flex';
+                }
             }
         }
     }
