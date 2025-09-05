@@ -8,15 +8,19 @@ The Talent Lab Scan helps young people discover their natural talents and streng
 
 ## Features
 
-- **Interactive Assessment**: 12 carefully crafted questions with character video introductions
+- **Interactive Assessment**: 12 carefully crafted questions with unique character avatars
 - **Four Talent Profiles**:
   - Creatieve verhalenvertellers (Creative Storytellers)
   - Digitale ontwerpers (Digital Designers)
   - Onderzoekende denkers (Research Thinkers)
   - Sociale verbinders (Social Connectors)
+- **Character Integration**: Each question features a unique character (Emma, Malik, Sophie, etc.)
+- **Auto-advance Navigation**: Questions automatically progress after selection
 - **Visual Feedback**: Progress tracking and dynamic result visualization
-- **Responsive Design**: Optimized for desktop and mobile devices
+- **Responsive Design**: Fully responsive for desktop, tablet and mobile devices
 - **Multi-page Flow**: Seamless navigation from start to results
+- **Progress Saving**: Automatically saves progress in localStorage
+- **Accessible Language**: Optimized for 16-year-olds with clear, simple Dutch
 
 ## Getting Started
 
@@ -49,18 +53,24 @@ npx http-server
 
 ```
 talent-scan/
-├── start.html              # Landing page
+├── start.html              # Landing page with branding
 ├── talent_lab_scan.html    # Main quiz application
-├── results.html            # Results display
-├── styles.css              # Styling
-├── styles-original.css     # Original backup styles
+├── results.html            # Results display page
+├── styles.css              # Main styling file
+├── js/                     # JavaScript modules
+│   ├── app-integrated.js   # Main quiz logic
+│   └── results-integrated.js # Results page logic
 ├── IMG/                    # Images and logos
 │   ├── Provincie-Flevoland.png
 │   ├── Flevomeer-logo.png
 │   ├── group.png
 │   ├── background.jpg
-│   └── [Talent group images]
-└── VID/                    # Character videos
+│   ├── [Talent group images]
+│   └── characters/        # Character avatars
+│       ├── 01- emma.png
+│       ├── 02-malik.png
+│       └── [...12 characters total]
+└── VID/                    # Character videos (optional)
     └── vraag-[01-12].mp4
 ```
 
@@ -80,6 +90,9 @@ talent-scan/
 - **No Dependencies**: Runs without any external libraries
 - **Scoring Algorithm**: Weighted scoring system (1-3 points per answer)
 - **Data Flow**: Client-side processing with URL parameter passing
+- **State Management**: LocalStorage for progress persistence
+- **Security**: Input sanitization and XSS protection
+- **Performance**: Optimized images, modular JavaScript, efficient CSS
 
 ## Customization
 

@@ -27,13 +27,13 @@
             question: "Bij welke vakken voel je je het meest op je plek?"
         },
         {
-            situation: "Er is een conflict in je vriendengroep...",
+            situation: "Er is ruzie in je vriendengroep...",
             context: "Mensen zijn boos en verdrietig...",
             question: "Hoe ga jij hiermee om?"
         },
         {
             situation: "Je wilt iets delen op sociale media...",
-            context: "Je hebt verschillende soorten content...",
+            context: "Je hebt verschillende soorten dingen om te delen...",
             question: "Wat post je het liefst?"
         },
         {
@@ -70,7 +70,7 @@
 
     const questions = [
         {
-            text: "Als je een groepsopdracht krijgt voor school, welke rol neem je meestal aan?",
+            text: "Bij een groepsopdracht voor school neem ik meestal deze rol aan:",
             options: [
                 { text: "Ik bedenk originele ideeën en schrijf de teksten", scores: {creatief: 3, sociaal: 1} },
                 { text: "Ik maak de visuele presentatie en zorg voor het digitale deel", scores: {digitaal: 3, onderzoekend: 1} },
@@ -79,7 +79,7 @@
             ]
         },
         {
-            text: "In je vrije tijd ben je het liefst bezig met:",
+            text: "In mijn vrije tijd ben ik het liefst bezig met:",
             options: [
                 { text: "Schrijven, lezen of verhalen bedenken", scores: {creatief: 3} },
                 { text: "Tekenen, ontwerpen of dingen maken op de computer", scores: {digitaal: 3} },
@@ -88,34 +88,34 @@
             ]
         },
         {
-            text: "Waar ben je volgens anderen goed in?",
+            text: "Ik ben volgens anderen goed in:",
             options: [
                 { text: "Verhalen vertellen en grappige dingen bedenken", scores: {creatief: 2, sociaal: 1} },
-                { text: "Mooi vormgeven en technische dingen uitvogelen", scores: {digitaal: 2, onderzoekend: 1} },
-                { text: "Informatie vinden en complexe dingen begrijpen", scores: {onderzoekend: 2, digitaal: 1} },
-                { text: "Luisteren naar anderen en conflicten oplossen", scores: {sociaal: 2, creatief: 1} }
+                { text: "Mooi vormgeven en technische dingen uitzoeken", scores: {digitaal: 2, onderzoekend: 1} },
+                { text: "Informatie vinden en moeilijke dingen begrijpen", scores: {onderzoekend: 2, digitaal: 1} },
+                { text: "Luisteren naar anderen en ruzie oplossen", scores: {sociaal: 2, creatief: 1} }
             ]
         },
         {
-            text: "Welke vakken vind je het interessantst?",
+            text: "Ik vind deze vakken het interessantst:",
             options: [
                 { text: "Nederlands, geschiedenis, filosofie", scores: {creatief: 2, onderzoekend: 1} },
-                { text: "Informatica, techniek, beeldende vorming", scores: {digitaal: 2, creatief: 1} },
+                { text: "Informatica, techniek, tekenen", scores: {digitaal: 2, creatief: 1} },
                 { text: "Wiskunde, natuurkunde, biologie", scores: {onderzoekend: 2, digitaal: 1} },
-                { text: "Mentoruur, maatschappijleer, lichamelijke opvoeding", scores: {sociaal: 2, creatief: 1} }
+                { text: "Mentoruur, maatschappijleer, sport", scores: {sociaal: 2, creatief: 1} }
             ]
         },
         {
-            text: "Als er een probleem is in je vriendengroep, wat doe je dan?",
+            text: "Als er ruzie is in mijn vriendengroep, dan:",
             options: [
                 { text: "Ik probeer het probleem weg te praten met humor of verhalen", scores: {creatief: 2, sociaal: 1} },
-                { text: "Ik zoek praktische oplossingen en maak eventueel een schema", scores: {digitaal: 1, onderzoekend: 2} },
-                { text: "Ik analyseer wat er precies aan de hand is en zoek feiten", scores: {onderzoekend: 3} },
+                { text: "Ik zoek handige oplossingen en maak eventueel een plan", scores: {digitaal: 1, onderzoekend: 2} },
+                { text: "Ik zoek uit wat er precies aan de hand is", scores: {onderzoekend: 3} },
                 { text: "Ik breng iedereen bij elkaar en help ze praten", scores: {sociaal: 3} }
             ]
         },
         {
-            text: "Wat post je het liefst op sociale media?",
+            text: "Ik post het liefst dit op sociale media:",
             options: [
                 { text: "Grappige teksten, memes of verhalen", scores: {creatief: 2, sociaal: 1} },
                 { text: "Mooie foto's, video's of creatieve content", scores: {digitaal: 2, creatief: 1} },
@@ -124,7 +124,7 @@
             ]
         },
         {
-            text: "Hoe ziet jouw perfecte weekend eruit?",
+            text: "Mijn perfecte weekend ziet er zo uit:",
             options: [
                 { text: "Een goed boek lezen, film kijken of creatief bezig zijn", scores: {creatief: 3} },
                 { text: "Nieuwe apps proberen, video's maken of iets ontwerpen", scores: {digitaal: 3} },
@@ -133,16 +133,16 @@
             ]
         },
         {
-            text: "Wat lijkt je het leukst om later te doen?",
+            text: "Later wil ik het liefst dit doen:",
             options: [
                 { text: "Schrijver, journalist, acteur of iets met verhalen", scores: {creatief: 3} },
                 { text: "Game designer, architect, filmmaker of iets met ontwerpen", scores: {digitaal: 3} },
-                { text: "Onderzoeker, dokter, advocaat of iets met analyseren", scores: {onderzoekend: 3} },
+                { text: "Onderzoeker, dokter, advocaat of iets met uitzoeken", scores: {onderzoekend: 3} },
                 { text: "Leraar, psycholoog, manager of iets met mensen", scores: {sociaal: 3} }
             ]
         },
         {
-            text: "Hoe leer je het liefst nieuwe dingen?",
+            text: "Ik leer het liefst nieuwe dingen:",
             options: [
                 { text: "Door verhalen, voorbeelden en ervaringen van anderen", scores: {creatief: 2, sociaal: 1} },
                 { text: "Door zelf te experimenteren en dingen uit te proberen", scores: {digitaal: 2, onderzoekend: 1} },
@@ -151,16 +151,16 @@
             ]
         },
         {
-            text: "Wanneer voel je je het meest gestrest?",
+            text: "Ik voel me het meest gestrest als:",
             options: [
-                { text: "Als ik geen inspiratie heb of niet creatief kan zijn", scores: {creatief: 2} },
+                { text: "Als ik geen goede ideeën heb of niet creatief kan zijn", scores: {creatief: 2} },
                 { text: "Als technologie niet werkt of ik iets niet digitaal kan maken", scores: {digitaal: 2} },
-                { text: "Als ik informatie mis of iets niet goed begrijp", scores: {onderzoekend: 2} },
+                { text: "Als ik informatie mis of iets niet goed snap", scores: {onderzoekend: 2} },
                 { text: "Als er ruzie is of mensen niet goed samenwerken", scores: {sociaal: 2} }
             ]
         },
         {
-            text: "Welk compliment krijg je het vaakst?",
+            text: "Ik krijg dit compliment het vaakst:",
             options: [
                 { text: "Je hebt altijd leuke ideeën!", scores: {creatief: 3} },
                 { text: "Jij weet altijd hoe dingen werken!", scores: {digitaal: 2, onderzoekend: 1} },
@@ -169,7 +169,7 @@
             ]
         },
         {
-            text: "Als je een presentatie moet geven, wat doe je dan?",
+            text: "Als ik een presentatie moet geven, dan:",
             options: [
                 { text: "Ik vertel het als een verhaal met voorbeelden", scores: {creatief: 2, sociaal: 1} },
                 { text: "Ik maak een mooie slideshow met plaatjes en video's", scores: {digitaal: 2, creatief: 1} },
@@ -300,6 +300,28 @@
             if (situationLine) situationLine.textContent = introText.situation;
             if (contextLine) contextLine.textContent = introText.context;
             if (questionLine) questionLine.textContent = introText.question;
+        }
+        
+        // Update character image based on current question
+        const characterImg = document.getElementById('character-img');
+        if (characterImg) {
+            const characterNames = ['emma', 'malik', 'sofie', 'zara', 'jasper', 'luna', 'noah', 'aisha', 'lars', 'mila', 'david', 'fatima'];
+            const questionNumber = currentIntro + 1;
+            const characterName = characterNames[currentIntro] || 'emma';
+            
+            // Format: 01- emma.png, 02-malik.png etc.
+            const imageNumber = questionNumber.toString().padStart(2, '0');
+            let imageSrc;
+            if (currentIntro === 0) {
+                // First image has a space: "01- emma.png"
+                imageSrc = `IMG/characters/${imageNumber}- ${characterName}.png`;
+            } else {
+                // Other images: "02-malik.png"
+                imageSrc = `IMG/characters/${imageNumber}-${characterName}.png`;
+            }
+            
+            characterImg.src = imageSrc;
+            characterImg.alt = characterName.charAt(0).toUpperCase() + characterName.slice(1);
         }
         
         // Update counter and progress
