@@ -202,6 +202,8 @@ body.welcome-active {
     margin-bottom: -5px;
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .results-group-image img {
@@ -508,6 +510,8 @@ body.welcome-active {
     margin-bottom: -5px;
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .results-group-image img {
@@ -526,6 +530,27 @@ body.welcome-active {
     backdrop-filter: blur(10px);
     max-width: 800px;
     width: 100%;
+}
+
+/* Call-to-action on results page */
+.call-to-action {
+    text-align: center;
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.cta-text {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.cta-text #talent-type-cta {
+    font-weight: bold;
+    color: white;
+    text-transform: lowercase;
 }
 
 .results-screen h1 {
@@ -617,6 +642,8 @@ body.welcome-active {
     margin-bottom: 40px;
     border-radius: 15px;
     color: white;
+    position: relative;
+    z-index: 2;
 }
 
 .talent-header.creatief {
@@ -656,14 +683,57 @@ body.welcome-active {
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-left: 5px solid #ddd;
+    position: relative;
+    z-index: 2;
 }
 
 .talent-section h2 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     margin-bottom: 20px;
-    color: #333;
+    color: #222;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Talent-specific section borders and headers */
+.talent-creatief .talent-section {
+    border-left-color: #7b1fa2;
+}
+
+.talent-creatief .talent-section h2 {
+    color: #7b1fa2;
+    border-bottom-color: rgba(123, 31, 162, 0.2);
+}
+
+.talent-digitaal .talent-section {
+    border-left-color: #00695c;
+}
+
+.talent-digitaal .talent-section h2 {
+    color: #00695c;
+    border-bottom-color: rgba(0, 105, 92, 0.2);
+}
+
+.talent-onderzoekend .talent-section {
+    border-left-color: #0288d1;
+}
+
+.talent-onderzoekend .talent-section h2 {
+    color: #0288d1;
+    border-bottom-color: rgba(2, 136, 209, 0.2);
+}
+
+.talent-sociaal .talent-section {
+    border-left-color: #d81b60;
+}
+
+.talent-sociaal .talent-section h2 {
+    color: #d81b60;
+    border-bottom-color: rgba(216, 27, 96, 0.2);
 }
 
 .book-grid {
@@ -683,15 +753,37 @@ body.welcome-active {
 }
 
 .book-item {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.book-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fallback for text-only books */
+.book-item.text-only {
     background: #f8f9fa;
     border: 1px solid #e9ecef;
-    border-radius: 8px;
     padding: 20px 15px;
-    text-align: center;
-    min-height: 80px;
-    display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     font-style: italic;
     color: #666;
 }
@@ -708,6 +800,37 @@ body.welcome-active {
     margin-bottom: 10px;
     border-radius: 8px;
     border-left: 4px solid #ddd;
+}
+
+.simple-list li strong,
+.activity-list li strong {
+    color: #111;
+    font-weight: 600;
+}
+
+/* Talent-specific list item styling - higher specificity */
+.container.talent-creatief .simple-list li,
+.container.talent-creatief .activity-list li {
+    border-left-color: rgba(123, 31, 162, 0.5) !important;
+    background: rgba(123, 31, 162, 0.05) !important;
+}
+
+.container.talent-digitaal .simple-list li,
+.container.talent-digitaal .activity-list li {
+    border-left-color: rgba(0, 105, 92, 0.5) !important;
+    background: rgba(0, 105, 92, 0.05) !important;
+}
+
+.container.talent-onderzoekend .simple-list li,
+.container.talent-onderzoekend .activity-list li {
+    border-left-color: rgba(2, 136, 209, 0.5) !important;
+    background: rgba(2, 136, 209, 0.05) !important;
+}
+
+.container.talent-sociaal .simple-list li,
+.container.talent-sociaal .activity-list li {
+    border-left-color: rgba(216, 27, 96, 0.5) !important;
+    background: rgba(216, 27, 96, 0.05) !important;
 }
 
 .location {
@@ -735,33 +858,76 @@ body.welcome-active {
     background: #d81b60 !important;
 }
 
-/* Subtle links in content */
+/* Styled button links in talent sections */
 .talent-section .info-link {
     display: inline-block;
-    margin-top: 12px;
-    color: #555;
-    font-size: 0.9rem;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 0.85rem;
     text-decoration: none;
-    opacity: 1;
+    border-radius: 25px;
     transition: all 0.3s ease;
-    font-weight: 500;
+    font-weight: 600;
+    border: 2px solid transparent;
 }
 
 .talent-section .info-link:hover {
-    color: #333;
-    text-decoration: underline;
-    transform: translateX(2px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.talent-section .info-link::after {
-    content: " →";
-    margin-left: 4px;
-    display: inline-block;
-    transition: transform 0.3s ease;
+/* Removed ::after arrow - it's now in the HTML */
+
+
+/* Talent-specific button colors */
+.talent-creatief .talent-section .info-link {
+    background: rgba(123, 31, 162, 0.1);
+    color: #7b1fa2;
+    border-color: rgba(123, 31, 162, 0.2);
 }
 
-.talent-section .info-link:hover::after {
-    transform: translateX(3px);
+.talent-creatief .talent-section .info-link:hover {
+    background: #7b1fa2;
+    color: white;
+    border-color: #7b1fa2;
+}
+
+.talent-digitaal .talent-section .info-link {
+    background: rgba(0, 105, 92, 0.1);
+    color: #00695c;
+    border-color: rgba(0, 105, 92, 0.2);
+}
+
+.talent-digitaal .talent-section .info-link:hover {
+    background: #00695c;
+    color: white;
+    border-color: #00695c;
+}
+
+.talent-onderzoekend .talent-section .info-link {
+    background: rgba(2, 136, 209, 0.1);
+    color: #0288d1;
+    border-color: rgba(2, 136, 209, 0.2);
+}
+
+.talent-onderzoekend .talent-section .info-link:hover {
+    background: #0288d1;
+    color: white;
+    border-color: #0288d1;
+}
+
+.talent-sociaal .talent-section .info-link {
+    background: rgba(216, 27, 96, 0.1);
+    color: #d81b60;
+    border-color: rgba(216, 27, 96, 0.2);
+}
+
+.talent-sociaal .talent-section .info-link:hover {
+    background: #d81b60;
+    color: white;
+    border-color: #d81b60;
 }
 
 @media (max-width: 768px) {
@@ -784,6 +950,10 @@ body.welcome-active {
     }
     
     .book-item {
+        aspect-ratio: 3/4;
+    }
+    
+    .book-item.text-only {
         padding: 15px 10px;
         min-height: 60px;
         font-size: 0.9rem;
@@ -1196,8 +1366,9 @@ body.welcome-active {
     }
     
     .talent-section h2 {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        letter-spacing: 0.3px;
     }
     
     .simple-list li,
@@ -1219,6 +1390,10 @@ body.welcome-active {
     }
     
     .book-item {
+        aspect-ratio: 3/4;
+    }
+    
+    .book-item.text-only {
         font-size: 0.8rem;
         padding: 10px 8px;
         min-height: 60px;
@@ -1228,14 +1403,11 @@ body.welcome-active {
         display: none;
     }
     
-    /* Links on mobile */
+    /* Links on mobile - keep button styling */
     .talent-section .info-link {
-        font-size: 0.85rem;
-        margin-top: 10px;
-        padding: 8px 12px;
-        background: rgba(0,0,0,0.03);
-        border-radius: 6px;
-        display: inline-block;
+        font-size: 0.8rem;
+        margin-top: 12px;
+        padding: 8px 16px;
     }
 }
 
