@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Results - Talent Lab</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Results Screen met groep afbeelding -->
+        <div class="screen results-screen active">
+            <!-- Groep afbeelding voor uitkomst -->
+            <div class="results-group-image">
+                <img id="group-result-img" src="IMG/Sociale verbinders.png" alt="Sociale verbinders">
+            </div>
+            
+            <!-- Results content container -->
+            <div class="results-content">
+                <div class="primary-talent" id="primary-talent">
+                    <h2 id="primary-name">Sociale verbinder</h2>
+                    <p id="primary-percentage">39% match</p>
+                </div>
+                
+                <div class="talent-scores" id="talent-scores">
+                    <!-- Wordt dynamisch gevuld -->
+                </div>
+                
+                <div class="description" id="description">
+                    <h3>Jouw talentprofiel</h3>
+                    <p id="description-text">Jij bent een sociale verbinder! Je bent goed met mensen en weet hoe je groepen kunt begeleiden. Je luistert goed en helpt anderen graag. Samenwerking en verbinding maken zijn jouw sterke punten!</p>
+                </div>
+                
+                <button class="btn" onclick="window.location.href='start.html'">OPNIEUW DOEN</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const talentInfo = {
+            creatief: {
+                name: "Creatieve verhalenverteller",
+                description: "Jij bent een creatieve verhalenverteller! Je hebt een natuurlijk talent voor taal, verhalen en originele ideeën. Je kunt goed communiceren en weet hoe je anderen kunt boeien met je creativiteit. Woorden zijn jouw kracht!",
+                image: "IMG/Creatieve verhalenvertellers.png"
+            },
+            digitaal: {
+                name: "Digitale ontwerper",
+                description: "Jij bent een digitale ontwerper! Je hebt een oog voor design en weet hoe je technologie kunt gebruiken om mooie dingen te maken. Creativiteit en techniek komen bij jou samen. Je bent de brug tussen idee en realisatie!",
+                image: "IMG/Digitale ontwerpers.png"
+            },
+            onderzoekend: {
+                name: "Onderzoekende denker",
+                description: "Jij bent een onderzoekende denker! Je bent nieuwsgierig en wilt altijd weten hoe dingen werken. Je kunt goed informatie vinden, analyseren en begrijpen. Jouw kracht ligt in het ontdekken van de waarheid achter de dingen!",
+                image: "IMG/Onderzoekende denkers.png"
+            },
+            sociaal: {
+                name: "Sociale verbinder",
+                description: "Jij bent een sociale verbinder! Je bent goed met mensen en weet hoe je groepen kunt begeleiden. Je luistert goed en helpt anderen graag. Samenwerking en verbinding maken zijn jouw sterke punten!",
+                image: "IMG/Sociale verbinders.png"
+            }
+        };
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                primary: params.get('primary') || 'sociaal',
+                creatief: parseInt(params.get('creatief')) || 11,
+                digitaal: parseInt(params.get('digitaal')) || 25,
+                onderzoekend: parseInt(params.get('onderzoekend')) || 25,
+                sociaal: parseInt(params.get('sociaal')) || 39
+            };
+        }
+
+        function displayResults() {
+            const results = getUrlParams();
+            const primaryTalent = results.primary;
+            const maxPercentage = results[primaryTalent];
+            
+            // Update groep afbeelding
+            const groupImg = document.getElementById('group-result-img');
+            groupImg.src = talentInfo[primaryTalent].image;
+            groupImg.alt = talentInfo[primaryTalent].name;
+            
+            // Update primary talent
+            const primaryTalentElement = document.getElementById('primary-talent');
+            primaryTalentElement.className = `primary-talent ${primaryTalent}`;
+            document.getElementById('primary-name').textContent = talentInfo[primaryTalent].name;
+            document.getElementById('primary-percentage').textContent = `${maxPercentage}% match`;
+            
+            // Update talent scores
+            const scoresContainer = document.getElementById('talent-scores');
+            scoresContainer.innerHTML = '';
+            
+            Object.keys(talentInfo).forEach(talent => {
+                const card = document.createElement('div');
+                card.className = `talent-card ${talent}`;
+                card.innerHTML = `
+                    <h3>${talentInfo[talent].name}</h3>
+                    <div class="percentage">${results[talent]}%</div>
+                `;
+                scoresContainer.appendChild(card);
+            });
+            
+            // Update description
+            document.getElementById('description-text').textContent = talentInfo[primaryTalent].description;
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayResults();
+        });
+    </script>
+</body>
+</html>
