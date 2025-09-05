@@ -10,10 +10,19 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+console.log('🔥 Initializing Firebase...');
 firebase.initializeApp(firebaseConfig);
+console.log('✅ Firebase app initialized');
 
 // Initialize Firestore  
 const db = firebase.firestore();
+console.log('✅ Firestore database initialized');
+
+// Make functions globally available
+window.saveCompletedScan = saveCompletedScan;
+window.loadDashboardStats = loadDashboardStats;
+window.subscribeToDashboardStats = subscribeToDashboardStats;
+console.log('✅ Firebase functions registered globally');
 
 // Helper functions for statistics
 async function saveCompletedScan(primaryTalent, answers, scores) {
