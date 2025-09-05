@@ -63,6 +63,7 @@
         </div>
     </div>
 
+    <script src="js/app-integrated.js" defer></script>
     <script>
         const introTexts = [
             {
@@ -469,10 +470,7 @@
             showScreen('welcome');
         }
         
-        // Initialize page - start direct met vragen
-        document.addEventListener('DOMContentLoaded', function() {
-            startScan();
-        });
+        // Code moved to external file for better performance
     </script>
 </body>
 </html>

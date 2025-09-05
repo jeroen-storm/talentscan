@@ -36,7 +36,9 @@
         </div>
     </div>
 
+    <script src="js/results-integrated.js" defer></script>
     <script>
+        // Code moved to external file
         const talentInfo = {
             creatief: {
                 name: "Creatieve verhalenverteller",
@@ -105,10 +107,6 @@
             document.getElementById('description-text').textContent = talentInfo[primaryTalent].description;
         }
         
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            displayResults();
-        });
     </script>
 </body>
 </html>

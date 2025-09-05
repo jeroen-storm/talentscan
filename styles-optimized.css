@@ -1,0 +1,497 @@
+/* Talent Lab Scan - Optimized Styles */
+/* CSS Variables for consistency and easy theming */
+:root {
+    --primary-color: #ff7320;
+    --secondary-color: #ff9500;
+    --dark-bg: rgba(0, 0, 0, 0.7);
+    --light-bg: rgba(255, 255, 255, 0.9);
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --border-radius: 20px;
+    --transition-speed: 0.3s;
+    --talent-creatief: #7b1fa2;
+    --talent-digitaal: #00695c;
+    --talent-onderzoekend: #0288d1;
+    --talent-sociaal: #d81b60;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: url('IMG/background.jpg') center/cover no-repeat fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Performance: Use will-change sparingly */
+.container {
+    background: var(--dark-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 90%;
+    min-height: 600px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    contain: layout style;
+}
+
+/* Screen management */
+.screen {
+    display: none;
+    padding: 2.5rem;
+    text-align: center;
+    min-height: 600px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeIn var(--transition-speed) ease-out;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Question screen specific */
+.question-screen {
+    justify-content: space-between;
+}
+
+.question-container {
+    flex: 1;
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    margin-bottom: 1.875rem;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    margin-bottom: 1.875rem;
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Question options */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.option {
+    background: var(--light-bg);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    color: var(--text-dark);
+    font-weight: 500;
+    transform: translateZ(0); /* Hardware acceleration */
+}
+
+.option:hover,
+.option:focus-visible {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(255, 115, 32, 0.3);
+}
+
+.option.selected {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 20px rgba(255, 115, 32, 0.5);
+}
+
+/* Buttons */
+.btn,
+.btn-nav {
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-light);
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    min-height: 50px;
+}
+
+.btn:hover:not(:disabled),
+.btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-nav {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-light);
+    padding: 0.75rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    min-height: 45px;
+}
+
+.btn-nav:hover:not(:disabled),
+.btn-nav:focus-visible {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-next {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-color: var(--primary-color);
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Intro screen */
+.intro-screen {
+    justify-content: space-between;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.intro-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2.5rem 0;
+    gap: 1.875rem;
+}
+
+.situation-line,
+.context-line,
+.question-line {
+    color: var(--text-light);
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+}
+
+.situation-line,
+.context-line {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    opacity: 0.9;
+}
+
+.question-line {
+    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    font-weight: bold;
+}
+
+/* Results screen */
+.results-screen {
+    background: transparent;
+    padding: 0;
+}
+
+.results-group-image {
+    margin-bottom: -5px;
+    display: flex;
+    justify-content: center;
+}
+
+.results-group-image img {
+    height: auto;
+    max-height: 400px;
+    width: auto;
+    max-width: 100%;
+    display: block;
+}
+
+.results-content {
+    background: var(--dark-bg);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Primary talent display */
+.primary-talent {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--text-light);
+    padding: 1.875rem;
+    border-radius: var(--border-radius);
+    margin: 1.25rem 0;
+}
+
+.primary-talent.creatief {
+    background: linear-gradient(135deg, var(--talent-creatief) 0%, #9c27b0 100%);
+}
+
+.primary-talent.digitaal {
+    background: linear-gradient(135deg, var(--talent-digitaal) 0%, #26a69a 100%);
+}
+
+.primary-talent.onderzoekend {
+    background: linear-gradient(135deg, var(--talent-onderzoekend) 0%, #00acc1 100%);
+}
+
+.primary-talent.sociaal {
+    background: linear-gradient(135deg, var(--talent-sociaal) 0%, #f06292 100%);
+}
+
+/* Talent scores grid */
+.talent-scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem;
+    margin: 1.875rem 0;
+}
+
+.talent-card {
+    background: var(--light-bg);
+    padding: 1.25rem;
+    border-radius: 15px;
+    border-left: 5px solid;
+    color: var(--text-dark);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform var(--transition-speed) ease;
+}
+
+.talent-card:hover {
+    transform: translateY(-2px);
+}
+
+.talent-card.creatief { border-left-color: var(--talent-creatief); }
+.talent-card.digitaal { border-left-color: var(--talent-digitaal); }
+.talent-card.onderzoekend { border-left-color: var(--talent-onderzoekend); }
+.talent-card.sociaal { border-left-color: var(--talent-sociaal); }
+
+.percentage {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* Description section */
+.description {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 1.25rem 0;
+    text-align: left;
+    color: var(--text-dark);
+}
+
+.description h2,
+.description h3 {
+    color: #e65100;
+    margin-bottom: 1rem;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Responsive design - Mobile first approach */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .container {
+        width: 95%;
+        margin: 0.625rem;
+        border-radius: 15px;
+        min-height: 100vh;
+    }
+    
+    .screen {
+        padding: 1.25rem;
+        min-height: calc(100vh - 1.25rem);
+    }
+    
+    .options {
+        gap: 0.75rem;
+    }
+    
+    .option {
+        padding: 1rem;
+        min-height: 65px;
+        font-size: 0.95rem;
+    }
+    
+    .btn-nav {
+        flex: 1;
+        padding: 1rem 1.25rem;
+        min-height: 50px;
+    }
+    
+    .navigation {
+        gap: 0.625rem;
+    }
+    
+    .talent-scores {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .results-group-image img {
+        max-height: 250px;
+    }
+    
+    .results-content {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .talent-scores {
+        grid-template-columns: 1fr;
+    }
+    
+    .intro-text {
+        gap: 1.25rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+    }
+    
+    .container {
+        box-shadow: none;
+        background: white;
+    }
+    
+    .btn,
+    .btn-nav,
+    .navigation,
+    .share-buttons {
+        display: none !important;
+    }
+    
+    .screen {
+        padding: 0;
+    }
+    
+    .results-content {
+        background: white;
+        color: black;
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-bg: rgba(255, 255, 255, 0.8);
+    }
+}
