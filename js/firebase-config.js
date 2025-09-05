@@ -11,11 +11,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-console.log('Firebase initialized');
 
-// Initialize Firestore
+// Initialize Firestore  
 const db = firebase.firestore();
-console.log('Firestore initialized');
 
 // Helper functions for statistics
 async function saveCompletedScan(primaryTalent, answers, scores) {
