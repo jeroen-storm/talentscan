@@ -124,12 +124,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is developed for educational purposes by Provincie Flevoland and Bibliotheek FlevoMeer.
+This project is developed for educational purposes by Provincie Flevoland, Bibliotheek FlevoMeer and NBD Biblion.
 
 ## Credits
 
 - **Development**: TechLeesLab
-- **Partners**: Provincie Flevoland, Bibliotheek FlevoMeer
+- **Partners**: Provincie Flevoland, Bibliotheek FlevoMeer, NBD Biblion
 - **Target Audience**: Dutch youth and educational institutions
 
 ## Contact
