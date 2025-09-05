@@ -17,7 +17,18 @@ const db = firebase.firestore();
 
 // Helper functions for statistics
 async function saveCompletedScan(primaryTalent, answers, scores) {
-    console.log('Saving scan to Firebase...', { primaryTalent, answers, scores });
+    console.log('🔥 Firebase: Starting save operation...');
+    console.log('Data received:', { primaryTalent, answers, scores });
+    
+    // Validate input
+    if (!primaryTalent || !answers || !scores) {
+        console.error('❌ Firebase: Missing required data');
+        console.error('primaryTalent:', primaryTalent);
+        console.error('answers:', answers);
+        console.error('scores:', scores);
+        saveFallbackToLocalStorage(primaryTalent, answers, scores);
+        return;
+    }
     try {
         // Save scan result
         const scanResult = await db.collection('scans').add({
@@ -27,7 +38,7 @@ async function saveCompletedScan(primaryTalent, answers, scores) {
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             date: new Date().toISOString()
         });
-        console.log('Scan saved with ID:', scanResult.id);
+        console.log('✅ Firebase: Scan saved with ID:', scanResult.id);
         
         // Update aggregated statistics
         const statsRef = db.collection('statistics').doc('summary');
@@ -52,6 +63,7 @@ async function saveCompletedScan(primaryTalent, answers, scores) {
             });
         } else {
             // Initialize statistics document
+            console.log('📊 Firebase: Creating new statistics document...');
             const initialStats = {
                 totalScans: 1,
                 talentCounts: {
@@ -60,7 +72,8 @@ async function saveCompletedScan(primaryTalent, answers, scores) {
                     onderzoekend: 0,
                     sociaal: 0
                 },
-                questionStats: {}
+                questionStats: {},
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             };
             
             initialStats.talentCounts[primaryTalent] = 1;
@@ -78,9 +91,17 @@ async function saveCompletedScan(primaryTalent, answers, scores) {
             await statsRef.set(initialStats);
         }
         
-        console.log('Statistics updated successfully');
+        console.log('✅ Firebase: Statistics updated successfully!');
+        
+        // Verify the save by reading back
+        const verifyDoc = await statsRef.get();
+        if (verifyDoc.exists) {
+            const data = verifyDoc.data();
+            console.log('✅ Firebase: Verification successful. Total scans:', data.totalScans);
+        }
     } catch (error) {
-        console.error('Error saving scan to Firebase:', error);
+        console.error('❌ Firebase: Error saving scan:', error);
+        console.error('Error details:', error.code, error.message);
         // Fallback to localStorage if Firebase fails
         saveFallbackToLocalStorage(primaryTalent, answers, scores);
     }

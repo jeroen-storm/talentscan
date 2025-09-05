@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Database Cleanup - Talent Scan</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        button {
+            padding: 12px 24px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220,53,69,0.3);
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,193,7,0.3);
+        }
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+        .btn-info:hover {
+            background: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(23,162,184,0.3);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .count-badge {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗑️ Firebase Database Cleanup Tool</h1>
+        <p>Gebruik deze tool om de Talent Scan database op te schonen.</p>
+        
+        <div class="warning">
+            <strong>⚠️ Waarschuwing:</strong> Deze acties kunnen niet ongedaan gemaakt worden! 
+            Wees voorzichtig met het verwijderen van data.
+        </div>
+        
+        <div class="stats" id="stats">
+            <h3>📊 Database Status</h3>
+            <div id="stats-content">Loading...</div>
+        </div>
+        
+        <h3>🔧 Cleanup Opties</h3>
+        
+        <div>
+            <button class="btn-info" onclick="loadStats()">
+                🔄 Refresh Statistics
+            </button>
+            <button class="btn-warning" onclick="deleteAllScans()">
+                📝 Delete All Scans
+            </button>
+            <button class="btn-warning" onclick="resetStatistics()">
+                📊 Reset Statistics to Zero
+            </button>
+            <button class="btn-danger" onclick="deleteEverything()">
+                ☠️ DELETE EVERYTHING
+            </button>
+        </div>
+        
+        <div id="result" class="result"></div>
+        
+        <div class="log" id="log"></div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4C-5dWbchpxwBSR3CsBHojGuC31GHets",
+            authDomain: "talent-scan-4fed1.firebaseapp.com",
+            projectId: "talent-scan-4fed1",
+            storageBucket: "talent-scan-4fed1.firebasestorage.app",
+            messagingSenderId: "555119008430",
+            appId: "1:555119008430:web:28984b3f5df801d772eb3f",
+            measurementId: "G-MVZLLNC7MD"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? '#f00' : type === 'success' ? '#0f0' : '#0ff';
+            logDiv.innerHTML += `<span style="color: ${color}">[${timestamp}] ${message}</span>\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+
+        async function loadStats() {
+            try {
+                log('Loading statistics...', 'info');
+                const statsContent = document.getElementById('stats-content');
+                
+                // Get scans count
+                const scansSnapshot = await db.collection('scans').get();
+                const scansCount = scansSnapshot.size;
+                
+                // Get statistics
+                const statsDoc = await db.collection('statistics').doc('summary').get();
+                const statsData = statsDoc.exists ? statsDoc.data() : null;
+                
+                let html = `
+                    <div>📁 Scans Collection: <span class="count-badge">${scansCount} documents</span></div>
+                    <div style="margin-top: 10px">📊 Statistics Summary:</div>
+                `;
+                
+                if (statsData) {
+                    html += `
+                        <div style="margin-left: 20px; margin-top: 5px">
+                            • Total Scans: ${statsData.totalScans || 0}<br>
+                            • Creatief: ${statsData.talentCounts?.creatief || 0}<br>
+                            • Digitaal: ${statsData.talentCounts?.digitaal || 0}<br>
+                            • Onderzoekend: ${statsData.talentCounts?.onderzoekend || 0}<br>
+                            • Sociaal: ${statsData.talentCounts?.sociaal || 0}
+                        </div>
+                    `;
+                } else {
+                    html += '<div style="margin-left: 20px; color: #666">No statistics document found</div>';
+                }
+                
+                statsContent.innerHTML = html;
+                log('Statistics loaded successfully', 'success');
+                
+            } catch (error) {
+                log('Error loading stats: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteAllScans() {
+            if (!confirm('Weet je zeker dat je ALLE scan results wilt verwijderen?')) {
+                return;
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Deleting scans...';
+            
+            try {
+                log('Starting to delete all scans...', 'info');
+                
+                // Get all scans
+                const scansSnapshot = await db.collection('scans').get();
+                const deletePromises = [];
+                
+                scansSnapshot.forEach((doc) => {
+                    deletePromises.push(doc.ref.delete());
+                });
+                
+                await Promise.all(deletePromises);
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `✅ Successfully deleted ${deletePromises.length} scans`;
+                log(`Deleted ${deletePromises.length} scan documents`, 'success');
+                
+                // Reload stats
+                await loadStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '❌ Error: ' + error.message;
+                log('Error deleting scans: ' + error.message, 'error');
+            }
+        }
+
+        async function resetStatistics() {
+            if (!confirm('Weet je zeker dat je de statistics wilt resetten naar 0?')) {
+                return;
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Resetting statistics...';
+            
+            try {
+                log('Resetting statistics to zero...', 'info');
+                
+                const statsRef = db.collection('statistics').doc('summary');
+                
+                await statsRef.set({
+                    totalScans: 0,
+                    talentCounts: {
+                        creatief: 0,
+                        digitaal: 0,
+                        onderzoekend: 0,
+                        sociaal: 0
+                    },
+                    questionStats: {},
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = '✅ Statistics reset to zero';
+                log('Statistics reset successfully', 'success');
+                
+                // Reload stats
+                await loadStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '❌ Error: ' + error.message;
+                log('Error resetting statistics: ' + error.message, 'error');
+            }
+        }
+
+        async function deleteEverything() {
+            if (!confirm('⚠️ WAARSCHUWING: Dit verwijdert ALLE data!\n\nWeet je het ZEKER?')) {
+                return;
+            }
+            
+            if (!confirm('⚠️ LAATSTE WAARSCHUWING!\n\nDit kan NIET ongedaan gemaakt worden!\n\nWeet je het ECHT zeker?')) {
+                return;
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Deleting everything...';
+            
+            try {
+                log('Starting complete database cleanup...', 'info');
+                
+                // Delete all scans
+                const scansSnapshot = await db.collection('scans').get();
+                const scanDeletes = [];
+                scansSnapshot.forEach((doc) => {
+                    scanDeletes.push(doc.ref.delete());
+                });
+                await Promise.all(scanDeletes);
+                log(`Deleted ${scanDeletes.length} scan documents`, 'info');
+                
+                // Delete statistics
+                await db.collection('statistics').doc('summary').delete();
+                log('Deleted statistics document', 'info');
+                
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = '✅ All data deleted successfully';
+                log('Complete database cleanup successful', 'success');
+                
+                // Reload stats
+                await loadStats();
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = '❌ Error: ' + error.message;
+                log('Error during complete cleanup: ' + error.message, 'error');
+            }
+        }
+
+        // Load stats on page load
+        window.addEventListener('load', () => {
+            loadStats();
+        });
+    </script>
+</body>
+</html>

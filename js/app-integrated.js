@@ -556,9 +556,16 @@
         });
         
         // Save to Firebase (function from firebase-config.js)
+        console.log('🎯 Quiz Complete! Attempting to save to Firebase...');
+        console.log('Primary talent:', primaryTalent);
+        console.log('Scores:', scores);
+        console.log('Firebase function available?', typeof saveCompletedScan === 'function');
+        
         if (typeof saveCompletedScan === 'function') {
+            console.log('✅ Firebase function found, saving...');
             saveCompletedScan(primaryTalent, answers, scores);
         } else {
+            console.warn('⚠️ Firebase function not found! Using localStorage fallback');
             // Fallback to localStorage if Firebase not loaded
             try {
                 const stats = JSON.parse(localStorage.getItem('talentScanStats') || '{}');

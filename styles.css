@@ -684,12 +684,57 @@ body.welcome-active {
 }
 
 .location {
-    background: #007bff;
     color: white;
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 0.8rem;
     margin-left: 10px;
+}
+
+/* Talent-specific location colors - with higher specificity */
+.container.talent-creatief .location {
+    background: #7b1fa2 !important;
+}
+
+.container.talent-digitaal .location {
+    background: #00695c !important;
+}
+
+.container.talent-onderzoekend .location {
+    background: #0288d1 !important;
+}
+
+.container.talent-sociaal .location {
+    background: #d81b60 !important;
+}
+
+/* Subtle links in content */
+.talent-section .info-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: #555;
+    font-size: 0.9rem;
+    text-decoration: none;
+    opacity: 1;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.talent-section .info-link:hover {
+    color: #333;
+    text-decoration: underline;
+    transform: translateX(2px);
+}
+
+.talent-section .info-link::after {
+    content: " →";
+    margin-left: 4px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.talent-section .info-link:hover::after {
+    transform: translateX(3px);
 }
 
 @media (max-width: 768px) {
