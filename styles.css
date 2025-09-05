@@ -1061,15 +1061,19 @@ body.welcome-active {
     }
     
     .situation-line {
-        font-size: 1.6em;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
     }
     
     .context-line {
-        font-size: 1.3em;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
     }
     
     .question-line {
-        font-size: 1.8em;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-top: 20px;
     }
     
     #intro-next-btn {
@@ -1265,5 +1269,17 @@ body.welcome-active {
     
     .book-item {
         min-height: 50px;
+    }
+    
+    /* Intro screen on small phones */
+    .situation-line,
+    .context-line {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .question-line {
+        font-size: 1.2rem;
+        margin-top: 15px;
     }
 } 
