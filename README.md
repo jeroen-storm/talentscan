@@ -14,7 +14,11 @@ The Talent Lab Scan helps young people discover their natural talents and streng
   - 💻 Digitale ontwerpers (Digital Designers)
   - 🔍 Onderzoekende denkers (Research Thinkers)
   - 🤝 Sociale verbinders (Social Connectors)
-- **Personalized Activity Pages**: Each talent gets a custom page with:
+- **Library Assignment Pages**: After completing the scan, users are directed to their personalized assignment page with:
+  - Welcome message and talent description
+  - Downloadable worksheet with library activities
+  - Book recommendations (placeholder for now)
+- **Activity Overview Pages**: Each talent also has an overview page with:
   - Workshops and courses (LEER)
   - Questions to ask librarians (VRAAG)
   - Community events (ONTMOET)
@@ -59,26 +63,26 @@ npx http-server
 talent-scan/
 ├── start.html              # Landing page with branding
 ├── talent_lab_scan.html    # Main quiz application
+├── results.html            # Results display page
 ├── dashboard.html          # Statistics dashboard
-├── creatief.html           # Creative talent activities page
-├── digitaal.html           # Digital talent activities page  
-├── onderzoekend.html       # Research talent activities page
-├── sociaal.html            # Social talent activities page
+├── opdracht-creatief.html  # Library assignment page (Creative)
+├── opdracht-digitaal.html  # Library assignment page (Digital)
+├── opdracht-onderzoekend.html # Library assignment page (Research)
+├── opdracht-sociaal.html   # Library assignment page (Social)
+├── creatief.html           # Creative talent activities overview
+├── digitaal.html           # Digital talent activities overview
+├── onderzoekend.html       # Research talent activities overview
+├── sociaal.html            # Social talent activities overview
 ├── styles.css              # Main styling with talent themes
 ├── js/                     # JavaScript modules
 │   ├── app-integrated.js   # Quiz logic & Google Sheets saving
+│   ├── results-integrated.js # Results display and navigation
 │   └── dashboard.js        # Statistics visualization
 ├── IMG/                    # Images and assets
-│   ├── Provincie-Flevoland.png
-│   ├── Flevomeer-logo.png
-│   ├── group.png
-│   ├── [Talent group images]
-│   ├── books/              # Book cover images
-│   │   ├── creatief/       # 4 book covers per talent
-│   │   ├── digitaal/
-│   │   ├── onderzoekend/
-│   │   └── sociaal/
-│   └── characters/         # Character avatars (12 total)
+│   ├── werkblad-placeholder.svg # Worksheet preview placeholder
+│   ├── characters/         # Character avatars (12 total)
+│   └── books/              # Book cover images per talent
+├── downloads/              # PDF worksheets (to be added)
 └── .gitignore              # Excludes dev/debug files
 ```
 
@@ -90,8 +94,8 @@ talent-scan/
 4. Select the answer that best represents you
 5. Complete all 12 questions
 6. View your personalized talent profile
-7. Click "ONTDEK WAT ER TE DOEN IS" to explore activities
-8. Browse workshops, books, and activities for your talent
+7. Click "START JE BIEB-AVONTUUR" to go to your assignment page
+8. Download your worksheet and explore the library
 9. Visit the dashboard to see aggregated statistics
 
 ## 🛠 Technical Details
