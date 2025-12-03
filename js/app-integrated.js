@@ -549,7 +549,7 @@
         });
 
         // Save to Google Sheets
-        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxvbCiYQbXB2HuZidhniiTJX_K8mURVVnHM7ZxULmS6j7Brv3Lr1bfllOjO7T8nWPrA5Q/exec';
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzsuLGhnz62oZS6jf1r95tkxNYEQJ8LveEmba9fxJPmKiq6fTjSwbSuT3r7iKJheHU3hQ/exec';
 
         const data = {
             primaryTalent: primaryTalent,
@@ -558,32 +558,22 @@
             date: new Date().toISOString()
         };
 
-        // Send via hidden form to avoid CORS issues
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = SHEETS_URL;
-        form.target = 'hidden_iframe';
+        // Send data to Google Sheets
+        const formData = new FormData();
+        formData.append('data', JSON.stringify(data));
 
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'data';
-        input.value = JSON.stringify(data);
-        form.appendChild(input);
-
-        // Create hidden iframe to receive response
-        let iframe = document.getElementById('hidden_iframe');
-        if (!iframe) {
-            iframe = document.createElement('iframe');
-            iframe.name = 'hidden_iframe';
-            iframe.id = 'hidden_iframe';
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+        // Use sendBeacon for reliable delivery (works even when page is closing)
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(SHEETS_URL, formData);
+            console.log('✅ Resultaten verzonden via sendBeacon');
+        } else {
+            // Fallback to fetch
+            fetch(SHEETS_URL, {
+                method: 'POST',
+                body: formData
+            }).catch(err => console.log('Sheets error:', err));
+            console.log('✅ Resultaten verzonden via fetch');
         }
-
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
-        console.log('✅ Resultaten verzonden naar Google Sheets');
     }
 
     function displayResults() {

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxvbCiYQbXB2HuZidhniiTJX_K8mURVVnHM7ZxULmS6j7Brv3Lr1bfllOjO7T8nWPrA5Q/exec';
+    const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzsuLGhnz62oZS6jf1r95tkxNYEQJ8LveEmba9fxJPmKiq6fTjSwbSuT3r7iKJheHU3hQ/exec';
 
     async function loadDashboardData() {
         const dashboardContent = document.getElementById('dashboard-content');
