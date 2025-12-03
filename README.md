@@ -20,7 +20,7 @@ The Talent Lab Scan helps young people discover their natural talents and streng
   - Community events (ONTMOET)
   - Book recommendations with covers (LEES)
   - Hands-on activities at BiblioLab (DOE)
-- **Firebase Integration**: Real-time statistics dashboard
+- **Google Sheets Integration**: Statistics saved to Google Spreadsheet
 - **Smooth Animations**: Fade transitions between questions
 - **Responsive Design**: Optimized for desktop, tablet and mobile
 - **Progress Saving**: Automatically saves progress in localStorage
@@ -66,9 +66,8 @@ talent-scan/
 ├── sociaal.html            # Social talent activities page
 ├── styles.css              # Main styling with talent themes
 ├── js/                     # JavaScript modules
-│   ├── app-integrated.js   # Quiz logic & Firebase saving
-│   ├── dashboard.js        # Statistics visualization
-│   └── firebase-config.js  # Firebase configuration
+│   ├── app-integrated.js   # Quiz logic & Google Sheets saving
+│   └── dashboard.js        # Statistics visualization
 ├── IMG/                    # Images and assets
 │   ├── Provincie-Flevoland.png
 │   ├── Flevomeer-logo.png
@@ -79,7 +78,7 @@ talent-scan/
 │   │   ├── digitaal/
 │   │   ├── onderzoekend/
 │   │   └── sociaal/
-│   └── characters/         # Character avatars (10 total)
+│   └── characters/         # Character avatars (12 total)
 └── .gitignore              # Excludes dev/debug files
 ```
 
@@ -97,10 +96,10 @@ talent-scan/
 
 ## 🛠 Technical Details
 
-- **Technology**: HTML5, CSS3, JavaScript (ES6+), Firebase
-- **Database**: Firebase Firestore for statistics
+- **Technology**: HTML5, CSS3, JavaScript (ES6+)
+- **Data Storage**: Google Sheets via Apps Script API
 - **Scoring Algorithm**: Weighted scoring system (0-3 points per answer)
-- **State Management**: LocalStorage for progress, Firebase for statistics
+- **State Management**: LocalStorage for progress, Google Sheets for statistics
 - **Responsive Breakpoints**: 
   - Desktop: >1024px (4-column book grid)
   - Tablet: 768-1024px (3-column book grid)
@@ -135,8 +134,7 @@ Edit the `questions` array in `js/app-integrated.js`:
 Access `/dashboard.html` to view:
 - Total number of completed scans
 - Distribution across talent types
-- Visual bar chart of results
-- Real-time updates via Firebase
+- Links to full data in Google Spreadsheet
 
 ## Contributing
 

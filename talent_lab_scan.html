@@ -17,7 +17,7 @@
                 <div class="intro-counter" id="intro-counter">Vraag 1 van 12</div>
                 
                 <div class="character-image" id="character-image">
-                    <img src="IMG/characters/01- emma.png" alt="Emma" id="character-img">
+                    <img src="IMG/characters/01-emma.png" alt="Emma" id="character-img">
                 </div>
                 
                 <div class="intro-text" id="intro-text">
@@ -63,34 +63,6 @@
         </div>
     </div>
 
-    <!-- Firebase v8 (stable) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
-    <!-- Firebase configuration - MUST load before app -->
-    <script src="js/firebase-config.js"></script>
-    
-    <!-- Main app - Load after Firebase is ready -->
-    <script>
-        // Ensure Firebase is initialized before loading the app
-        window.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Page loaded, checking Firebase...');
-            
-            // Small delay to ensure Firebase is fully initialized
-            setTimeout(function() {
-                if (typeof firebase !== 'undefined' && typeof db !== 'undefined') {
-                    console.log('✅ Firebase is ready');
-                    console.log('✅ saveCompletedScan function available:', typeof saveCompletedScan === 'function');
-                } else {
-                    console.error('❌ Firebase not properly initialized');
-                }
-                
-                // Load the main app
-                const script = document.createElement('script');
-                script.src = 'js/app-integrated.js';
-                document.body.appendChild(script);
-            }, 100);
-        });
-    </script>
+    <script src="js/app-integrated.js"></script>
 </body>
 </html>

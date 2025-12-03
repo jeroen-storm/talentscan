@@ -339,16 +339,9 @@
             const questionNumber = actualIndex + 1; // Character follows the actual question
             const characterName = characterNames[actualIndex] || 'emma';
             
-            // Format: 01- emma.png, 02-malik.png etc.
+            // Format: 01-emma.png, 02-malik.png etc.
             const imageNumber = questionNumber.toString().padStart(2, '0');
-            let imageSrc;
-            if (actualIndex === 0) {
-                // First image has a space: "01- emma.png"
-                imageSrc = `IMG/characters/${imageNumber}- ${characterName}.png`;
-            } else {
-                // Other images: "02-malik.png"
-                imageSrc = `IMG/characters/${imageNumber}-${characterName}.png`;
-            }
+            const imageSrc = `IMG/characters/${imageNumber}-${characterName}.png`;
             
             characterImg.src = imageSrc;
             characterImg.alt = characterName.charAt(0).toUpperCase() + characterName.slice(1);
@@ -554,39 +547,43 @@
                 primaryTalent = talent;
             }
         });
-        
-        // Save to Firebase (function from firebase-config.js)
-        console.log('🎯 Quiz Complete! Attempting to save to Firebase...');
-        console.log('Primary talent:', primaryTalent);
-        console.log('Scores:', scores);
-        console.log('Firebase function available?', typeof saveCompletedScan === 'function');
-        
-        if (typeof saveCompletedScan === 'function') {
-            console.log('✅ Firebase function found, saving...');
-            saveCompletedScan(primaryTalent, answers, scores);
-        } else {
-            console.warn('⚠️ Firebase function not found! Using localStorage fallback');
-            // Fallback to localStorage if Firebase not loaded
-            try {
-                const stats = JSON.parse(localStorage.getItem('talentScanStats') || '{}');
-                stats.completedScans = (stats.completedScans || 0) + 1;
-                stats.talentResults = stats.talentResults || {};
-                stats.talentResults[primaryTalent] = (stats.talentResults[primaryTalent] || 0) + 1;
-                stats.questionAnswers = stats.questionAnswers || {};
-                
-                answers.forEach((answerIndex, questionIndex) => {
-                    if (!stats.questionAnswers[questionIndex]) {
-                        stats.questionAnswers[questionIndex] = {};
-                    }
-                    stats.questionAnswers[questionIndex][answerIndex] = 
-                        (stats.questionAnswers[questionIndex][answerIndex] || 0) + 1;
-                });
-                
-                localStorage.setItem('talentScanStats', JSON.stringify(stats));
-            } catch (e) {
-                console.log('Could not save statistics');
-            }
+
+        // Save to Google Sheets
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxvbCiYQbXB2HuZidhniiTJX_K8mURVVnHM7ZxULmS6j7Brv3Lr1bfllOjO7T8nWPrA5Q/exec';
+
+        const data = {
+            primaryTalent: primaryTalent,
+            scores: scores,
+            answers: answers,
+            date: new Date().toISOString()
+        };
+
+        // Send via hidden form to avoid CORS issues
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = SHEETS_URL;
+        form.target = 'hidden_iframe';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'data';
+        input.value = JSON.stringify(data);
+        form.appendChild(input);
+
+        // Create hidden iframe to receive response
+        let iframe = document.getElementById('hidden_iframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.id = 'hidden_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
         }
+
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        console.log('✅ Resultaten verzonden naar Google Sheets');
     }
 
     function displayResults() {
