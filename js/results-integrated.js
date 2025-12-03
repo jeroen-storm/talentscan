@@ -125,12 +125,12 @@
         const primaryTalent = urlParams.get('primary');
         
         if (primaryTalent) {
-            // Map talent types to page names
+            // Map talent types to opdracht pages
             const pageMap = {
-                'creatief': 'creatief.html',
-                'digitaal': 'digitaal.html', 
-                'onderzoekend': 'onderzoekend.html',
-                'sociaal': 'sociaal.html'
+                'creatief': 'opdracht-creatief.html',
+                'digitaal': 'opdracht-digitaal.html',
+                'onderzoekend': 'opdracht-onderzoekend.html',
+                'sociaal': 'opdracht-sociaal.html'
             };
             
             const targetPage = pageMap[primaryTalent];
@@ -138,11 +138,11 @@
                 window.location.href = targetPage;
             } else {
                 // Fallback
-                window.location.href = 'creatief.html';
+                window.location.href = 'opdracht-creatief.html';
             }
         } else {
             // Fallback if no primary talent found
-            window.location.href = 'creatief.html';
+            window.location.href = 'opdracht-creatief.html';
         }
     };
     

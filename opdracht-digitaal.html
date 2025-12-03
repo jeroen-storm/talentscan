@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jouw Opdracht - Digitale Ontwerper</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .opdracht-intro {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .opdracht-intro h2 {
+            color: #00695c;
+            margin-bottom: 15px;
+        }
+        .opdracht-intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+        .werkblad-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .werkblad-section h2 {
+            color: #00695c;
+            margin-bottom: 20px;
+        }
+        .werkblad-preview {
+            max-width: 300px;
+            margin: 20px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .werkblad-preview img {
+            width: 100%;
+            display: block;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #00695c;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 105, 92, 0.4);
+        }
+        .boeken-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .boeken-section h2 {
+            color: #00695c;
+            margin-bottom: 20px;
+        }
+        .boeken-placeholder {
+            background: #f9f9f9;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            color: #888;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .nav-buttons .btn-secondary {
+            background: transparent;
+            border: 2px solid #00695c;
+            color: #00695c;
+        }
+        .nav-buttons .btn-secondary:hover {
+            background: #00695c;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container talent-digitaal">
+        <div class="screen active">
+            <!-- Groep afbeelding -->
+            <div class="results-group-image">
+                <img src="IMG/Digitale ontwerpers.png" alt="Digitale ontwerpers">
+            </div>
+
+            <!-- Header -->
+            <div class="talent-header digitaal">
+                <h1>Welkom, Digitale Ontwerper!</h1>
+                <p>Jij bent sterk in: digitale tools gebruiken, ontwerpen, visualiseren en programmeren</p>
+            </div>
+
+            <!-- Intro tekst -->
+            <div class="opdracht-intro">
+                <h2>Jouw bieb-avontuur begint hier!</h2>
+                <p>
+                    Gaaf dat je er bent! Als digitale ontwerper heb jij een talent voor technologie en design.
+                    De bibliotheek heeft een maakplaats vol met gave apparatuur en mogelijkheden voor jou.
+                </p>
+                <p>
+                    <strong>Jouw mogelijke einddoelen:</strong><br>
+                    PR maken voor de bibliotheek, de jeugdafdeling inrichten, of een maakplaats activiteit organiseren.
+                </p>
+                <p>
+                    Download hieronder je werkblad met opdrachten. Ontdek de 3D-printers, leer videobewerking
+                    en zie wat je allemaal kunt maken in de bibliotheek!
+                </p>
+            </div>
+
+            <!-- Werkblad sectie -->
+            <div class="werkblad-section">
+                <h2>JOUW WERKBLAD</h2>
+                <div class="werkblad-preview">
+                    <img src="IMG/werkblad-placeholder.svg" alt="Werkblad preview">
+                </div>
+                <p>Download je persoonlijke werkblad met opdrachten voor in de bibliotheek.</p>
+                <a href="downloads/werkblad-digitaal.pdf" class="download-btn" download>DOWNLOAD WERKBLAD</a>
+            </div>
+
+            <!-- Boeken sectie -->
+            <div class="boeken-section">
+                <h2>BOEKENTIPS VOOR JOU</h2>
+                <div class="boeken-placeholder">
+                    <p>Boekentips worden binnenkort toegevoegd!</p>
+                    <p>Vraag een bibliotheekmedewerker om tips over design, programmeren en digitale creatie.</p>
+                </div>
+            </div>
+
+            <!-- Navigatie buttons -->
+            <div class="nav-buttons">
+                <button class="btn" onclick="window.location.href='start.html'">NIEUWE SCAN</button>
+                <button class="btn btn-secondary" onclick="window.location.href='digitaal.html'">BEKIJK ALLE ACTIVITEITEN</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
