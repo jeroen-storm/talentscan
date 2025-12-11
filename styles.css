@@ -139,10 +139,11 @@ body.welcome-active {
 
 .welcome-screen {
     background: url('IMG/background.jpg') center/cover no-repeat;
+    background-attachment: fixed;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     position: fixed;
     top: 0;
@@ -150,6 +151,8 @@ body.welcome-active {
     width: 100vw;
     height: 100vh;
     z-index: 100;
+    overflow-y: auto;
+    padding-bottom: 30px;
 }
 
 .welcome-screen .main-content {
@@ -181,10 +184,8 @@ body.welcome-active {
 
 /* Hoofdcontainer voor groep + oranje blok - alleen welkomstscherm */
 .welcome-screen .main-content {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -264,7 +265,128 @@ body.welcome-active {
     text-transform: uppercase;
 }
 
+/* Leerkrachten sectie */
+.teacher-section {
+    position: relative;
+    margin: 40px auto 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px 50px;
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.teacher-section h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ff7320;
+}
+
+.teacher-section p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.btn-teacher {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #ff7320 0%, #ff9500 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-teacher:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255, 115, 32, 0.4);
+}
+
+.teacher-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.teacher-downloads {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.download-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.download-card:hover {
+    transform: scale(1.05);
+}
+
+.download-card img {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+}
+
+.download-card span {
+    color: #ff7320;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
 @media (max-width: 768px) {
+    .teacher-section {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin: 20px auto;
+        padding: 20px 25px;
+    }
+
+    .teacher-section h3 {
+        font-size: 1.2em;
+    }
+
+    .teacher-section p {
+        font-size: 0.9em;
+    }
+
+    .btn-teacher {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .teacher-downloads {
+        gap: 20px;
+    }
+
+    .download-card img {
+        width: 120px;
+    }
+
+    .download-card span {
+        font-size: 0.85em;
+    }
+
     .logo-top-left, .logo-top-right {
         top: 20px;
     }
